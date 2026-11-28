@@ -8,12 +8,11 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestAccountMove(BaseCommon):
+    _test_user_groups = ("account.group_account_invoice",)
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env.user.group_ids = [
-            Command.link(cls.env.ref("account.group_account_invoice").id)
-        ]
         cls.partner = cls.env["res.partner"].create({"name": "Test"})
         cls.product = cls.env["product.product"].create(
             {"name": "Test product", "type": "consu"}

@@ -8,13 +8,15 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestInvoiceFixedDiscount(BaseCommon):
+    _test_user_groups = (
+        "account.group_account_invoice",
+        "account_invoice_fixed_discount.group_fixed_discount",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
 
-        cls.env.user.group_ids = [
-            Command.link(cls.env.ref("account.group_account_invoice").id)
-        ]
         cls.partner = cls.env["res.partner"].create({"name": "Test"})
         cls.product = cls.env["product.product"].create(
             {
@@ -90,9 +92,11 @@ class TestInvoiceFixedDiscount(BaseCommon):
         """Tests multiple discounts in line with taxes."""
 
         # Fixed discount 1.0 unit at 57.00
-        with Form(self.invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line:
-                line.discount_fixed = 57.00
+        with (
+            Form(self.invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line,
+        ):
+            line.discount_fixed = 57.00
 
         # compute discount (57 / 200) * 100
         self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 28.5)
@@ -102,11 +106,13 @@ class TestInvoiceFixedDiscount(BaseCommon):
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 143.00)
 
         # Switch to regular discount at 20.00%
-        with Form(self.invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line:
-                # Force the fixed discount as the onchange does not
-                # handle the context properly
-                line.discount_fixed = 0.0
+        with (
+            Form(self.invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line,
+        ):
+            # Force the fixed discount as the onchange does not
+            # handle the context properly
+            line.discount_fixed = 0.0
 
         self.invoice.invoice_line_ids[0].discount = 20.0
         self.assertEqual(self.invoice.invoice_line_ids.discount_fixed, 0.0)
@@ -115,16 +121,25 @@ class TestInvoiceFixedDiscount(BaseCommon):
         self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 160.00)
 
+    def _percentage_discount_field(self):
+        # With account_invoice_triple_discount, discount is a readonly total
+        # computed from discount1, discount2 and discount3
+        if "discount1" in self.env["account.move.line"]._fields:
+            return "discount1"
+        return "discount"
+
     def _edit_line(self, **values):
-        with Form(self.invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line_form:
-                for field_name, value in values.items():
-                    setattr(line_form, field_name, value)
+        with (
+            Form(self.invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line_form,
+        ):
+            for field_name, value in values.items():
+                setattr(line_form, field_name, value)
         return self.invoice.invoice_line_ids
 
     def test_01b_price_change_keeps_percentage_discount(self):
         """Changing the unit price keeps a percentage discount"""
-        self._edit_line(discount=20.0)
+        self._edit_line(**{self._percentage_discount_field(): 20.0})
         line = self._edit_line(price_unit=300.0)
         self.assertAlmostEqual(line.discount, 20.0)
         self.assertAlmostEqual(line.price_subtotal, 240.0)
@@ -146,7 +161,7 @@ class TestInvoiceFixedDiscount(BaseCommon):
 
     def test_01e_percentage_discount_has_no_fixed_discount(self):
         """A percentage discount is kept as typed, without fixed discount"""
-        line = self._edit_line(discount=33.33)
+        line = self._edit_line(**{self._percentage_discount_field(): 33.33})
         self.assertEqual(line.discount_fixed, 0.0)
         self.assertAlmostEqual(line.discount, 33.33)
         self.assertEqual(line.price_subtotal, 133.34)
@@ -154,6 +169,11 @@ class TestInvoiceFixedDiscount(BaseCommon):
     def test_01f_clear_fixed_discount_keeps_percentage(self):
         """Clearing the fixed discount turns the line into a percentage
         discount line with the same percentage"""
+        if self._percentage_discount_field() != "discount":
+            self.skipTest(
+                "With account_invoice_triple_discount, the percentage comes "
+                "from discount1, discount2 and discount3"
+            )
         self._edit_line(discount_fixed=57.0)
         line = self._edit_line(discount_fixed=0.0)
         self.assertEqual(line.discount_fixed, 0.0)
@@ -164,10 +184,12 @@ class TestInvoiceFixedDiscount(BaseCommon):
         """Tests multiple discounts in line with taxes."""
 
         # Fixed discount 2.0 units at 50.00
-        with Form(self.invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line:
-                line.discount_fixed = 25.00
-                line.quantity = 2.0
+        with (
+            Form(self.invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line,
+        ):
+            line.discount_fixed = 25.00
+            line.quantity = 2.0
 
         # compute discount ((50 / 2) / 200) * 100
         self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 12.5)
@@ -179,10 +201,12 @@ class TestInvoiceFixedDiscount(BaseCommon):
         """Tests fixed discount with no taxes."""
 
         # Fixed discount 1.0 unit at 57.00
-        with Form(self.invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line:
-                line.tax_ids.clear()
-                line.discount_fixed = 57.00
+        with (
+            Form(self.invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line,
+        ):
+            line.tax_ids.clear()
+            line.discount_fixed = 57.00
 
         # compute discount (57 / 200) * 100
         self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 28.5)
@@ -194,10 +218,12 @@ class TestInvoiceFixedDiscount(BaseCommon):
         """Tests fixed discount with no taxes."""
 
         # Fixed discount 1.0 unit at 57.00
-        with Form(self.invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line:
-                line.price_unit = 0.00
-                line.discount_fixed = 57.00
+        with (
+            Form(self.invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line,
+        ):
+            line.price_unit = 0.00
+            line.discount_fixed = 57.00
 
         # compute discount (57 / 200) * 100
         self.assertEqual(self.invoice.invoice_line_ids.discount, 0.0)
