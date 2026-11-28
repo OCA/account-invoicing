@@ -52,9 +52,11 @@ class TestAccountMove(BaseCommon):
     def test_01_show_discount_warning_label(self):
         invoice = self._create_invoice(discount_fixed=10.00, discount1=10.00)
         self.assertTrue(invoice.show_discount_warning_label)
-        with Form(invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line:
-                line.discount_fixed = 0.0
+        with (
+            Form(invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line,
+        ):
+            line.discount_fixed = 0.0
         self.assertFalse(invoice.show_discount_warning_label)
 
     def test_02_get_lines_to_compute_discount(self):
@@ -62,9 +64,11 @@ class TestAccountMove(BaseCommon):
         self.assertAlmostEqual(invoice.invoice_line_ids[0].discount, 19)
         lines = invoice.invoice_line_ids._get_lines_to_compute_discount()
         self.assertEqual(lines, invoice.invoice_line_ids)
-        with Form(invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line:
-                line.discount_fixed = 10.0
+        with (
+            Form(invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line,
+        ):
+            line.discount_fixed = 10.0
         lines = invoice.invoice_line_ids._get_lines_to_compute_discount()
         self.assertEqual(lines, invoice.invoice_line_ids - invoice.invoice_line_ids[0])
 
